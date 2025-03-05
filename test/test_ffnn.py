@@ -34,7 +34,7 @@ class TestFFNN(unittest.TestCase):
         # 模型及损失函数
         model = FeedForwardNeuralNetwork(input_size, hidden_size, output_size, 'linear')
         criterion = nn.MSELoss()
-        optimizer = optim.SGD(model.parameters(), lr=learning_rate)
+        optimizer = optim.SGD(model.parameters(), lr=learning_rate, momentum=0.9)
 
         # 训练
         for epoch in range(num_epochs):
@@ -48,6 +48,8 @@ class TestFFNN(unittest.TestCase):
 
             if epoch % 1000 == 0:
                 print(f'Epoch {epoch}: loss: {loss.item():.4f}')
+            if loss.item() < 0.1:
+                break
 
         # 测试
         with torch.no_grad():
@@ -86,7 +88,7 @@ class TestFFNN(unittest.TestCase):
         # 模型及损失函数
         model = FeedForwardNeuralNetwork(input_size, hidden_size, output_size, 'sigmoid')
         criterion = nn.BCELoss()
-        optimizer = optim.SGD(model.parameters(), lr=learning_rate)
+        optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
         # 训练
         for epoch in range(num_epochs):
@@ -100,6 +102,8 @@ class TestFFNN(unittest.TestCase):
 
             if epoch % 1000 == 0:
                 print(f'Epoch {epoch}: loss: {loss.item():.4f}')
+            if loss.item() < 0.1:
+                break
 
         # 测试
         with torch.no_grad():
@@ -152,6 +156,8 @@ class TestFFNN(unittest.TestCase):
 
             if epoch % 1000 == 0:
                 print(f'Epoch {epoch}: loss: {loss.item():.4f}')
+            if loss.item() < 0.9:
+                break
 
         # 测试
         with torch.no_grad():

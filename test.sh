@@ -9,10 +9,15 @@ test_dataset() {
    python3 -m unittest test.test_randomset
 }
 
-# 模型
-test_model() {
+# 神经网络模型
+test_model_nn() {
    python3 -m unittest test.test_perceptron
    python3 -m unittest test.test_ffnn
+}
+
+# 卷积神经网络
+test_model_cnn() {
+   python3 -m unittest test.test_cnn
 }
 
 # 主函数
@@ -21,11 +26,14 @@ main() {
         dataset)
             test_dataset
             ;;
-        model)
+        model_nn)
             test_model
             ;;
+        model_cnn)
+            test_model_cnn
+            ;;
         *)
-            echo "用法: $0 {dataset|model}"
+            echo "用法: $0 {dataset|model_nn|model_cnn}"
             exit 1
             ;;
     esac
